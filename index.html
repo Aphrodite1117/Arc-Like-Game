@@ -2,74 +2,48 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#101820">
-  <title>Arc-Like-Game | Battle Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arc-Like-Game - Battle Screen Prototype</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="game-shell">
-    <header class="top-bar">
-      <div>
-        <p class="eyebrow">TACTICAL RPG PROTOTYPE</p>
-        <h1>試作戦闘</h1>
+  <main class="stage-wrap">
+    <canvas id="battle" width="600" height="600" aria-label="障害物のない16×16マスの戦闘マップ"></canvas>
+    <div id="introBanner" class="intro-banner" aria-live="polite" hidden></div>
+    <div id="levelUpBanner" class="level-up-banner" aria-live="polite" hidden>
+      <strong id="levelUpTitle">レベルアップ！</strong>
+      <div id="levelUpMessage"></div>
+      <span id="levelUpPrompt"></span>
+    </div>
+    <div class="battle-ui">
+      <div class="turn-row">
+        <div id="turnLabel">Round 1</div>
+        <div id="phaseLabel">味方のターン</div>
       </div>
-      <button id="resetButton" class="small-button" type="button">リセット</button>
-    </header>
-
-    <section class="turn-panel panel" aria-label="行動順">
-      <div class="section-heading">
-        <h2>行動順</h2>
-        <span class="subtle">AGI順・試作表示</span>
+      <div class="action-bar">
+        <button id="attackBtn" type="button">攻撃</button>
+        <button id="itemBtn" type="button">アイテム(3)</button>
+        <button id="waitBtn" type="button">待機</button>
       </div>
-      <div id="turnOrder" class="turn-order"></div>
-    </section>
-
-    <section class="battle-panel panel">
-      <div class="battle-heading">
-        <div>
-          <h2>草原の訓練場</h2>
-          <p>味方 3 / 敵 3</p>
+      <div id="messageBox">味方のターン</div>
+    </div>
+    <div class="help">移動範囲内のマスをタップして位置を調整。攻撃対象・アイテム対象の選択または待機で行動を確定します</div>
+    <section id="resultScreen" class="result-screen" role="dialog" aria-modal="true" aria-labelledby="resultTitle" hidden>
+      <div class="result-panel">
+        <h1 id="resultTitle"></h1>
+        <h2>味方の獲得経験値</h2>
+        <div class="result-table-wrap">
+          <table>
+            <thead>
+              <tr><th>キャラクター</th><th>獲得EXP</th><th>レベルアップ</th><th>現在レベル</th></tr>
+            </thead>
+            <tbody id="resultRows"></tbody>
+          </table>
         </div>
-        <span class="round-badge">ROUND 01</span>
-      </div>
-      <div class="canvas-wrap">
-        <canvas id="battleCanvas" aria-label="戦闘マップ。キャラクターを選択できます。"></canvas>
-      </div>
-      <p class="map-help">キャラクターをタップして選択</p>
-    </section>
-
-    <section class="status-panel panel" aria-live="polite">
-      <div class="section-heading">
-        <h2>キャラクター情報</h2>
-        <span id="sideLabel" class="side-label ally">味方</span>
-      </div>
-      <div class="character-summary">
-        <div id="portrait" class="portrait" aria-hidden="true">剣</div>
-        <div class="character-main">
-          <h3 id="characterName">アレン</h3>
-          <p id="characterRole">前衛 / バランス型</p>
-          <div class="hp-track"><div id="hpBar" class="hp-fill"></div></div>
-          <p id="hpText" class="hp-text">HP 30 / 30</p>
-        </div>
-      </div>
-      <div class="stat-grid">
-        <div><span>攻撃</span><strong id="attackStat">10</strong></div>
-        <div><span>防御</span><strong id="defenseStat">3</strong></div>
-        <div><span>敏捷</span><strong id="agilityStat">12</strong></div>
-        <div><span>移動</span><strong id="moveStat">3</strong></div>
+        <p id="resultGold"></p>
+        <button id="replayBtn" type="button">もう一度戦う</button>
       </div>
     </section>
-
-    <section class="log-panel panel">
-      <div class="section-heading">
-        <h2>戦闘ログ</h2>
-        <span class="subtle">SYSTEM</span>
-      </div>
-      <p id="battleLog">訓練場に味方と敵が現れた。</p>
-    </section>
-
-    <footer class="footer-note">PROTOTYPE 0.1 · 操作と画面レイアウトの確認用</footer>
   </main>
   <script src="main.js"></script>
 </body>
